@@ -1,3 +1,22 @@
 spring:
-  application:
-    name: security
+  datasource:
+    # JDBC URL = jdbc:postgresql://<host>:<port>/<database>
+    url: jdbc:postgresql://localhost:5433/jwtdemo
+    username: postgres
+    password: postgres
+  jpa:
+    hibernate:
+      # update = create/alter tables to match your entities.
+      # Fine for learning; real projects use Flyway migrations.
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true          # prints SQL in the console so you can see what happens
+
+app:
+  jwt:
+    # Base64-encoded key used to SIGN tokens. Env var wins if JWT_SECRET is set,
+    # otherwise the demo value after ":" is used.
+    secret: ${JWT_SECRET:ZGV2LW9ubHktc2VjcmV0LWtleS1jaGFuZ2UtbWUtMzItYnl0ZXM=}
+    expiration-ms: 3600000   # token lifetime: 1 hour
